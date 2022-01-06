@@ -5,7 +5,7 @@ const {
 	updateUser,
 	deleteUser,
 } = require('./user.controller');
-const { hashPassword } = require('../middleware');
+const { hashPassword, decryptPassword } = require('../middleware');
 const userRouter = Router();
 
 userRouter.post('/user', addUser);

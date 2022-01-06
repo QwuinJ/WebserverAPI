@@ -31,6 +31,15 @@ exports.listUser = async (req, res) => {
 	}
 };
 
+exports.logIn = async (req, res) => {
+	try {
+		res.status(200).send({ user: req.user.username });
+	} catch (e) {
+		console.log(e);
+		res.status(500).send({ message: 'Check server logs' });
+	}
+};
+
 exports.updateUser = async (req, res) => {
 	try {
 		const updatedUser = await User.updateOne(
