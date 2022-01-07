@@ -1,20 +1,13 @@
-// need CRUD functions
-
-// add user
-// list users
-// update user
-// delete user
-
-// THEN
-
 // add password checking functionality
 
 const User = require('./user.model');
+const jwt = require('jsonwebtoken');
 
 exports.addUser = async (req, res) => {
 	try {
 		const user = await User.create(req.body);
-		res.status(201).send({ message: 'Success', user });
+		const token = await user.generateAuthToken();
+		res.status(201).send({ message: 'Success', user, token });
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({ message: 'Check server logs' });
@@ -24,7 +17,7 @@ exports.addUser = async (req, res) => {
 exports.listUser = async (req, res) => {
 	try {
 		const user = await User.findOne({ username: req.params.username });
-		res.status(201).send({ message: 'Success', user });
+		res.status(201).send(user);
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({ message: 'Check server logs' });
@@ -33,7 +26,8 @@ exports.listUser = async (req, res) => {
 
 exports.logIn = async (req, res) => {
 	try {
-		res.status(200).send({ user: req.user.username });
+		const token = await req.user.generateAuthToken();
+		res.status(200).send({ user: req.user.username, token });
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({ message: 'Check server logs' });
@@ -58,6 +52,18 @@ exports.deleteUser = async (req, res) => {
 	try {
 		const deletedUser = await User.deleteOne({ username: req.params.username });
 		res.status(200).send({ message: 'Success', deletedUser });
+	} catch (e) {
+		console.log(e);
+		res.status(500).send({ message: 'Check server logs' });
+	}
+};
+
+exports.tokenCheck = async (req, res) => {
+	try {
+		const token = req.header('Authorization').replace('Bearer ', '');
+		const decodedToken = jwt.verify(token, process.env.SECRET);
+		const user = await User.findById(decodedToken._id);
+		res.status(200).send({ username: user.username });
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({ message: 'Check server logs' });

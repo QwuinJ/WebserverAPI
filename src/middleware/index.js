@@ -6,15 +6,11 @@
 // second should decrypt the password
 
 const bcrypt = require('bcryptjs');
+const User = require('../user/user.model');
 
-exports.hassPassword = async (req, res, next) => {
+exports.hashPassword = async (req, res, next) => {
 	try {
-		// const tempPassword = req.body.password;
-		// const hashedPassword = bcrypt.hash(tempPassword, 8);
-		// req.body.password = hashedPassword;
-
 		req.body.password = await bcrypt.hash(req.body.password, 8);
-
 		next();
 	} catch (e) {
 		console.log(e);
@@ -32,5 +28,6 @@ exports.decryptPassword = async (req, res, next) => {
 		}
 	} catch (e) {
 		console.log(e);
+		res.status(500).send({ message: 'Check server logs' });
 	}
 };
