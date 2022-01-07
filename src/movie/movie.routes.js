@@ -7,12 +7,9 @@ const {
 	deleteMovie,
 } = require('./movie.controllers');
 
-movieRouter.post('./movie', addMovie);
-
-// Add functions in movie models
-movieRouter.post('/.movie', listMovies);
-movieRouter.post('./movie', updateMovie);
-// this one has a :param
-movieRouter.delete('./movie/:title', deleteMovie);
+movieRouter.post('/movie', addMovie);
+movieRouter.get('/movie', listMovies);
+movieRouter.put('/movie', updateMovie);
+movieRouter.delete('/movie/:title', deleteMovie);
 
 module.exports = movieRouter;

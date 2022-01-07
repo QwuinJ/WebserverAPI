@@ -5,5 +5,24 @@
     "express": "^4.17.2",
     "mongoose": "^6.1.4",
     "node": "^17.3.0"
-  }
+  },
+  "name": "webserver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QwuinJ/WebserverAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QwuinJ/WebserverAPI/issues"
+  },
+  "homepage": "https://github.com/QwuinJ/WebserverAPI#readme",
+  "description": ""
 }

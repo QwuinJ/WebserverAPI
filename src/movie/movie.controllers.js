@@ -12,8 +12,8 @@ exports.addMovie = async (req, res) => {
 
 exports.listMovies = async (req, res) => {
 	try {
-		const movies = await Movie.findOne({});
-		res.status(200).send({ message: 'Success', movies });
+		const movie = await Movie.findOne({ title: req.params.title });
+		res.status(200).send({ message: 'Success', movie });
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({ message: 'check server logs' });
