@@ -24,7 +24,7 @@ exports.updateMovie = async (req, res) => {
 	try {
 		const updatedMovie = await Movie.updateOne(
 			{
-				title: req.params.title,
+				title: req.body.title,
 			},
 			{ $set: { actor: req.body.actor } },
 			{ new: true }
